@@ -10,7 +10,7 @@
 # ##############################################################################
 - author:
   name: Victoria Liu
-  link: "https://github.io/liuvictoria"
+  link: "https://github.com/liuvictoria"
   title: Undergraduate Student
   img: victoria.jpg
   institute: California Institute of Technology
@@ -18,7 +18,7 @@
      Email Address: "vliu@caltech.edu"
 - author:
   name: Sara Adams
-  link: "https://github.io/sarawrenadams"
+  link: "https://github.com/sarawrenadams"
   title: Undergraduate Student
   img: sara.jpg
   institute: California Institute of Technology
@@ -26,7 +26,7 @@
      Email Address: "sadams@caltech.edu"
 - author:
   name: Ruby Cheetham
-  link: "https://github.io/RubyCheetham"
+  link: "https://github.com/RubyCheetham"
   title: Undergraduate Student
 #   img: ruby.jpg
   institute: California Institute of Technology
@@ -34,7 +34,7 @@
      Email Address: "rcheetha@caltech.edu"
 - author:
   name: Makayla Betts
-  link: "https://github.io/makaylabetts"
+  link: "https://github.com/makaylabetts"
   title: Graduate Student
   img: makayla.jpg
   institute: California Institute of Technology
