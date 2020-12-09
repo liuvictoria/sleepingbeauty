@@ -1,0 +1,554 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Parameter estimates for both distributions</title>
+      
+      
+        
+          
+        <style>
+            .panel-widget-box {
+                	min-height: 20px;
+                	background-color: #f5f5f5;
+                	border: 1px solid #e3e3e3 !important;
+                	border-radius: 4px;
+                	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	overflow-x: hidden;
+                	overflow-y: hidden;
+                }
+
+                .scrollable {
+                  overflow: scroll;
+                }
+
+                progress {
+                	appearance: none;
+                	-moz-appearance: none;
+                	-webkit-appearance: none;
+
+                	border: none;
+                	height: 20px;
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                	color: royalblue;
+                	position: relative;
+                	margin: 0 0 1.5em;
+                }
+
+                progress[value]::-webkit-progress-bar {
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                }
+
+                progress[value]::-webkit-progress-value {
+                	position: relative;
+
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress.active:not([value])::before {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress[value]::-moz-progress-bar {
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress:not([value])::-moz-progress-bar {
+                	border-radius:3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+
+                }
+
+                progress.active:not([value])::-moz-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.active:not([value])::-webkit-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.primary[value]::-webkit-progress-value { background-color: #007bff; }
+                progress.primary:not([value])::before { background-color: #007bff; }
+                progress.primary:not([value])::-webkit-progress-bar { background-color: #007bff; }
+                progress.primary::-moz-progress-bar { background-color: #007bff; }
+
+                progress.secondary[value]::-webkit-progress-value { background-color: #6c757d; }
+                progress.secondary:not([value])::before { background-color: #6c757d; }
+                progress.secondary:not([value])::-webkit-progress-bar { background-color: #6c757d; }
+                progress.secondary::-moz-progress-bar { background-color: #6c757d; }
+
+                progress.success[value]::-webkit-progress-value { background-color: #28a745; }
+                progress.success:not([value])::before { background-color: #28a745; }
+                progress.success:not([value])::-webkit-progress-bar { background-color: #28a745; }
+                progress.success::-moz-progress-bar { background-color: #28a745; }
+
+                progress.danger[value]::-webkit-progress-value { background-color: #dc3545; }
+                progress.danger:not([value])::before { background-color: #dc3545; }
+                progress.danger:not([value])::-webkit-progress-bar { background-color: #dc3545; }
+                progress.danger::-moz-progress-bar { background-color: #dc3545; }
+
+                progress.warning[value]::-webkit-progress-value { background-color: #ffc107; }
+                progress.warning:not([value])::before { background-color: #ffc107; }
+                progress.warning:not([value])::-webkit-progress-bar { background-color: #ffc107; }
+                progress.warning::-moz-progress-bar { background-color: #ffc107; }
+
+                progress.info[value]::-webkit-progress-value { background-color: #17a2b8; }
+                progress.info:not([value])::before { background-color: #17a2b8; }
+                progress.info:not([value])::-webkit-progress-bar { background-color: #17a2b8; }
+                progress.info::-moz-progress-bar { background-color: #17a2b8; }
+
+                progress.light[value]::-webkit-progress-value { background-color: #f8f9fa; }
+                progress.light:not([value])::before { background-color: #f8f9fa; }
+                progress.light:not([value])::-webkit-progress-bar { background-color: #f8f9fa; }
+                progress.light::-moz-progress-bar { background-color: #f8f9fa; }
+
+                progress.dark[value]::-webkit-progress-value { background-color: #343a40; }
+                progress.dark:not([value])::-webkit-progress-bar { background-color: #343a40; }
+                progress.dark:not([value])::before { background-color: #343a40; }
+                progress.dark::-moz-progress-bar { background-color: #343a40; }
+
+                progress:not([value])::-webkit-progress-bar {
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+                progress:not([value])::before {
+                	content:" ";
+                	position:absolute;
+                	height: 20px;
+                	top:0;
+                	left:0;
+                	right:0;
+                	bottom:0;
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+
+                @keyframes stripes {
+                  from {background-position: 0%}
+                  to {background-position: 100%}
+                }
+
+        </style>
+        <style>
+            .codehilite .hll { background-color: #ffffcc }
+                .codehilite  { background: #f8f8f8; }
+                .codehilite .c { color: #408080; font-style: italic } /* Comment */
+                .codehilite .err { border: 1px solid #FF0000 } /* Error */
+                .codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+                .codehilite .o { color: #666666 } /* Operator */
+                .codehilite .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+                .codehilite .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+                .codehilite .cp { color: #BC7A00 } /* Comment.Preproc */
+                .codehilite .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+                .codehilite .c1 { color: #408080; font-style: italic } /* Comment.Single */
+                .codehilite .cs { color: #408080; font-style: italic } /* Comment.Special */
+                .codehilite .gd { color: #A00000 } /* Generic.Deleted */
+                .codehilite .ge { font-style: italic } /* Generic.Emph */
+                .codehilite .gr { color: #FF0000 } /* Generic.Error */
+                .codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+                .codehilite .gi { color: #00A000 } /* Generic.Inserted */
+                .codehilite .go { color: #888888 } /* Generic.Output */
+                .codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+                .codehilite .gs { font-weight: bold } /* Generic.Strong */
+                .codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+                .codehilite .gt { color: #0044DD } /* Generic.Traceback */
+                .codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+                .codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+                .codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+                .codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+                .codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+                .codehilite .kt { color: #B00040 } /* Keyword.Type */
+                .codehilite .m { color: #666666 } /* Literal.Number */
+                .codehilite .s { color: #BA2121 } /* Literal.String */
+                .codehilite .na { color: #7D9029 } /* Name.Attribute */
+                .codehilite .nb { color: #008000 } /* Name.Builtin */
+                .codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+                .codehilite .no { color: #880000 } /* Name.Constant */
+                .codehilite .nd { color: #AA22FF } /* Name.Decorator */
+                .codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+                .codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+                .codehilite .nf { color: #0000FF } /* Name.Function */
+                .codehilite .nl { color: #A0A000 } /* Name.Label */
+                .codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+                .codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+                .codehilite .nv { color: #19177C } /* Name.Variable */
+                .codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+                .codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+                .codehilite .mb { color: #666666 } /* Literal.Number.Bin */
+                .codehilite .mf { color: #666666 } /* Literal.Number.Float */
+                .codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+                .codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+                .codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+                .codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+                .codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+                .codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+                .codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+                .codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+                .codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+                .codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+                .codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+                .codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+                .codehilite .sx { color: #008000 } /* Literal.String.Other */
+                .codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+                .codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+                .codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+                .codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+                .codehilite .fm { color: #0000FF } /* Name.Function.Magic */
+                .codehilite .vc { color: #19177C } /* Name.Variable.Class */
+                .codehilite .vg { color: #19177C } /* Name.Variable.Global */
+                .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+                .codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+                .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+                .markdown h1 { margin-block-start: 0.34em }
+                .markdown h2 { margin-block-start: 0.42em }
+                .markdown h3 { margin-block-start: 0.5em }
+                .markdown h4 { margin-block-start: 0.67em }
+                .markdown h5 { margin-block-start: 0.84em }
+                .markdown h6 { margin-block-start: 1.17em }
+                .markdown ul { padding-inline-start: 2em }
+                .markdown ol { padding-inline-start: 2em }
+                .markdown strong { font-weight: 600 }
+                .markdown a { color: -webkit-link }
+                .markdown a { color: -moz-hyperlinkText }
+
+        </style>
+        <style>
+            .json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-row,
+                .json-formatter-row a,
+                .json-formatter-row a:hover {
+                  color: black;
+                  text-decoration: none;
+                }
+                .json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-row .json-formatter-string,
+                .json-formatter-row .json-formatter-stringifiable {
+                  color: green;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-row .json-formatter-number {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-boolean {
+                  color: red;
+                }
+                .json-formatter-row .json-formatter-null {
+                  color: #855A00;
+                }
+                .json-formatter-row .json-formatter-undefined {
+                  color: #ca0b69;
+                }
+                .json-formatter-row .json-formatter-function {
+                  color: #FF20ED;
+                }
+                .json-formatter-row .json-formatter-date {
+                  background-color: rgba(0, 0, 0, 0.05);
+                }
+                .json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: blue;
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-bracket {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-key {
+                  color: #00008B;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+                .json-formatter-dark.json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-dark.json-formatter-row,
+                .json-formatter-dark.json-formatter-row a,
+                .json-formatter-dark.json-formatter-row a:hover {
+                  color: white;
+                  text-decoration: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-string,
+                .json-formatter-dark.json-formatter-row .json-formatter-stringifiable {
+                  color: #31F031;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-number {
+                  color: #66C2FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-boolean {
+                  color: #EC4242;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-null {
+                  color: #EEC97D;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-undefined {
+                  color: #ef8fbe;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-function {
+                  color: #FD48CB;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-date {
+                  background-color: rgba(255, 255, 255, 0.05);
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: #027BFF;
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-bracket {
+                  color: #9494FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-key {
+                  color: #23A0DB;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-dark.json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-dark.json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+
+        </style>
+        <style>
+            table.panel-df {
+                    margin-left: auto;
+                    margin-right: auto;
+                    border: none;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    color: black;
+                    font-size: 12px;
+                    table-layout: fixed;
+                    width: 100%;
+                }
+
+                .panel-df tr, .panel-df th, .panel-df td {
+                    text-align: right;
+                    vertical-align: middle;
+                    padding: 0.5em 0.5em !important;
+                    line-height: normal;
+                    white-space: normal;
+                    max-width: none;
+                    border: none;
+                }
+
+                .panel-df tbody {
+                    display: table-row-group;
+                    vertical-align: middle;
+                    border-color: inherit;
+                }
+
+                .panel-df tbody tr:nth-child(odd) {
+                    background: #f5f5f5;
+                }
+
+                .panel-df thead {
+                    border-bottom: 1px solid black;
+                    vertical-align: bottom;
+                }
+
+                .panel-df tr:hover {
+                    background: lightblue !important;
+                    cursor: pointer;
+                }
+
+        </style>
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js" integrity="sha384-T2yuo9Oe71Cz/I4X9Ac5+gpEa5a8PpJCDlqKYO0CfAuEszu1JrXLl8YugMqYe3sM" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="f2fc23b0-41a5-4e2e-94b7-c3bd2e947ec6" data-root-id="1925"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="2224">
+          {"568f4501-ba24-4527-9721-0d5a903f00e2":{"roots":{"references":[{"attributes":{"below":[{"id":"1933"}],"center":[{"id":"1936"},{"id":"1939"},{"id":"2011"}],"frame_height":275,"frame_width":375,"left":[{"id":"1937"}],"renderers":[{"id":"1962"},{"id":"1967"},{"id":"1972"},{"id":"1977"},{"id":"1982"},{"id":"1987"},{"id":"1998"}],"title":{"id":"2001"},"toolbar":{"id":"1947"},"x_range":{"id":"1926"},"x_scale":{"id":"1929"},"y_range":{"id":"1924"},"y_scale":{"id":"1931"}},"id":"1925","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1993"}},"id":"1999","type":"CDSView"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1946","type":"BoxAnnotation"},{"attributes":{},"id":"1929","type":"LinearScale"},{"attributes":{},"id":"1931","type":"CategoricalScale"},{"attributes":{"fill_color":{"value":"#1f77b4"},"height":{"value":0.4},"left":{"field":"middle"},"line_color":{"value":"gray"},"right":{"field":"middle"},"y":{"field":"cat"}},"id":"1985","type":"HBar"},{"attributes":{"axis":{"id":"1937"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1939","type":"Grid"},{"attributes":{"line_color":{"value":"gray"},"x0":{"field":"top"},"x1":{"field":"top_whisker"},"y0":{"field":"cat"},"y1":{"field":"cat"}},"id":"1960","type":"Segment"},{"attributes":{"source":{"id":"1954"}},"id":"1973","type":"CDSView"},{"attributes":{"source":{"id":"1954"}},"id":"1983","type":"CDSView"},{"attributes":{"axis_label":"catastrophe times (s)","formatter":{"id":"2005"},"ticker":{"id":"1934"}},"id":"1933","type":"LinearAxis"},{"attributes":{"source":{"id":"1954"}},"id":"1978","type":"CDSView"},{"attributes":{},"id":"1934","type":"BasicTicker"},{"attributes":{"distribution":"normal","range":{"id":"1924"},"width":0.1},"id":"1994","type":"Jitter"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1980"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1981"},"selection_glyph":null,"view":{"id":"1983"}},"id":"1982","type":"GlyphRenderer"},{"attributes":{},"id":"1938","type":"CategoricalTicker"},{"attributes":{"axis_label":"concentration","formatter":{"id":"2003"},"ticker":{"id":"1938"}},"id":"1937","type":"CategoricalAxis"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"cat","transform":{"id":"1958"}},"height":{"value":0.4},"left":{"field":"bottom"},"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"right":{"field":"top"},"y":{"field":"cat"}},"id":"1981","type":"HBar"},{"attributes":{"axis":{"id":"1933"},"ticker":null},"id":"1936","type":"Grid"},{"attributes":{},"id":"2007","type":"UnionRenderers"},{"attributes":{},"id":"1941","type":"WheelZoomTool"},{"attributes":{"fill_color":{"value":"#1f77b4"},"height":{"value":0.1},"left":{"field":"bottom_whisker"},"line_color":{"value":"gray"},"right":{"field":"bottom_whisker"},"y":{"field":"cat"}},"id":"1975","type":"HBar"},{"attributes":{"fill_alpha":{"value":0},"fill_color":{"field":"cat","transform":{"id":"1958"}},"height":{"value":0.4},"left":{"field":"bottom"},"line_color":{"value":"gray"},"right":{"field":"top"},"y":{"field":"cat"}},"id":"1980","type":"HBar"},{"attributes":{},"id":"2008","type":"Selection"},{"attributes":{},"id":"1945","type":"HelpTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1940"},{"id":"1941"},{"id":"1942"},{"id":"1943"},{"id":"1944"},{"id":"1945"},{"id":"1990"}]},"id":"1947","type":"Toolbar"},{"attributes":{},"id":"1940","type":"PanTool"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"height":{"value":0.1},"left":{"field":"bottom_whisker"},"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"right":{"field":"bottom_whisker"},"y":{"field":"cat"}},"id":"1976","type":"HBar"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1975"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1976"},"selection_glyph":null,"view":{"id":"1978"}},"id":"1977","type":"GlyphRenderer"},{"attributes":{"overlay":{"id":"1946"}},"id":"1942","type":"BoxZoomTool"},{"attributes":{},"id":"1943","type":"SaveTool"},{"attributes":{},"id":"1944","type":"ResetTool"},{"attributes":{"items":[{"id":"2012"}]},"id":"2011","type":"Legend"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"x0":{"field":"bottom"},"x1":{"field":"bottom_whisker"},"y0":{"field":"cat"},"y1":{"field":"cat"}},"id":"1966","type":"Segment"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1960"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1961"},"selection_glyph":null,"view":{"id":"1963"}},"id":"1962","type":"GlyphRenderer"},{"attributes":{"label":{"field":"__label"},"renderers":[{"id":"1998"}]},"id":"2012","type":"LegendItem"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1965"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1966"},"selection_glyph":null,"view":{"id":"1968"}},"id":"1967","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.3},"fill_color":{"field":"cat","transform":{"id":"1992"}},"line_alpha":{"value":0.3},"line_color":{"field":"cat","transform":{"id":"1992"}},"x":{"field":"catastrophe time"},"y":{"field":"cat","transform":{"id":"1994"}}},"id":"1996","type":"Circle"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1970"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1971"},"selection_glyph":null,"view":{"id":"1973"}},"id":"1972","type":"GlyphRenderer"},{"attributes":{},"id":"2003","type":"CategoricalTickFormatter"},{"attributes":{"data_source":{"id":"1993"},"glyph":{"id":"1996"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1997"},"selection_glyph":null,"view":{"id":"1999"}},"id":"1998","type":"GlyphRenderer"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"x0":{"field":"top"},"x1":{"field":"top_whisker"},"y0":{"field":"cat"},"y1":{"field":"cat"}},"id":"1961","type":"Segment"},{"attributes":{"data":{"__label":["7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM"],"cat":["7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM"],"catastrophe time":[230.0,75.0,80.0,80.0,80.0,80.0,80.0,80.0,85.0,85.0,85.0,85.0,85.0,85.0,90.0,75.0,90.0,90.0,95.0,95.0,95.0,95.0,95.0,95.0,95.0,95.0,100.0,100.0,100.0,100.0,105.0,90.0,105.0,75.0,70.0,365.0,365.0,360.0,360.0,360.0,360.0,360.0,360.0,355.0,355.0,350.0,35.0,45.0,50.0,75.0,50.0,55.0,55.0,55.0,55.0,60.0,60.0,60.0,60.0,65.0,65.0,70.0,70.0,70.0,70.0,55.0,365.0,105.0,105.0,125.0,125.0,125.0,125.0,125.0,125.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,125.0,135.0,135.0,135.0,135.0,135.0,135.0,135.0,140.0,140.0,140.0,140.0,140.0,140.0,140.0,145.0,135.0,105.0,120.0,120.0,105.0,105.0,105.0,105.0,105.0,110.0,110.0,110.0,110.0,110.0,110.0,110.0,110.0,110.0,120.0,115.0,115.0,115.0,115.0,115.0,115.0,115.0,115.0,115.0,115.0,120.0,120.0,120.0,120.0,120.0,115.0,145.0,370.0,370.0,545.0,540.0,540.0,535.0,535.0,535.0,535.0,535.0,535.0,530.0,530.0,530.0,530.0,525.0,545.0,525.0,525.0,525.0,520.0,520.0,515.0,510.0,505.0,500.0,500.0,495.0,490.0,490.0,485.0,480.0,525.0,480.0,555.0,555.0,620.0,620.0,620.0,615.0,615.0,615.0,610.0,610.0,605.0,605.0,605.0,600.0,595.0,590.0,555.0,590.0,585.0,585.0,575.0,575.0,575.0,570.0,570.0,565.0,565.0,565.0,560.0,555.0,555.0,555.0,590.0,370.0,475.0,470.0,415.0,415.0,410.0,410.0,410.0,410.0,410.0,410.0,410.0,405.0,405.0,400.0,395.0,395.0,420.0,390.0,390.0,385.0,385.0,385.0,380.0,380.0,375.0,375.0,375.0,375.0,375.0,375.0,370.0,370.0,390.0,475.0,420.0,425.0,470.0,465.0,460.0,460.0,460.0,460.0,455.0,455.0,450.0,450.0,450.0,450.0,450.0,450.0,420.0,445.0,445.0,440.0,440.0,440.0,440.0,440.0,440.0,435.0,435.0,435.0,435.0,430.0,430.0,430.0,445.0,620.0,145.0,145.0,250.0,250.0,255.0,255.0,255.0,255.0,255.0,255.0,260.0,260.0,260.0,260.0,265.0,265.0,250.0,265.0,265.0,265.0,265.0,265.0,265.0,270.0,270.0,270.0,270.0,270.0,270.0,270.0,275.0,275.0,265.0,275.0,250.0,245.0,225.0,225.0,230.0,230.0,230.0,230.0,350.0,235.0,235.0,235.0,235.0,235.0,235.0,240.0,250.0,240.0,240.0,240.0,240.0,240.0,240.0,240.0,245.0,245.0,245.0,245.0,245.0,245.0,245.0,245.0,240.0,225.0,275.0,275.0,310.0,310.0,310.0,310.0,315.0,315.0,315.0,315.0,315.0,315.0,315.0,315.0,320.0,320.0,310.0,325.0,335.0,335.0,340.0,340.0,340.0,340.0,340.0,340.0,340.0,340.0,345.0,345.0,345.0,345.0,330.0,275.0,305.0,305.0,280.0,280.0,280.0,280.0,285.0,285.0,285.0,285.0,285.0,290.0,290.0,290.0,290.0,290.0,305.0,295.0,295.0,295.0,295.0,295.0,295.0,295.0,295.0,300.0,300.0,300.0,305.0,305.0,305.0,305.0,295.0,145.0,225.0,225.0,165.0,170.0,170.0,170.0,170.0,170.0,170.0,170.0,170.0,170.0,170.0,170.0,175.0,175.0,165.0,175.0,175.0,175.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,180.0,175.0,185.0,165.0,165.0,145.0,145.0,145.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,155.0,155.0,155.0,165.0,155.0,160.0,160.0,160.0,160.0,160.0,160.0,160.0,160.0,160.0,160.0,165.0,165.0,165.0,165.0,155.0,225.0,185.0,185.0,210.0,210.0,210.0,210.0,210.0,210.0,210.0,215.0,215.0,215.0,215.0,215.0,215.0,215.0,210.0,215.0,215.0,215.0,220.0,220.0,220.0,220.0,220.0,220.0,225.0,225.0,225.0,225.0,225.0,225.0,215.0,185.0,210.0,205.0,185.0,190.0,190.0,190.0,190.0,190.0,195.0,195.0,195.0,195.0,195.0,195.0,195.0,200.0,210.0,200.0,200.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,205.0,200.0,345.0,625.0,630.0,740.0,750.0,750.0,780.0,780.0,785.0,795.0,800.0,800.0,815.0,825.0,825.0,830.0,830.0,850.0,855.0,910.0,915.0,930.0,940.0,950.0,1020.0,1070.0,1195.0,1200.0,1220.0,1225.0,1240.0,625.0,735.0,735.0,345.0,730.0,730.0,645.0,650.0,650.0,650.0,650.0,650.0,660.0,660.0,660.0,670.0,670.0,675.0,680.0,660.0,680.0,680.0,725.0,720.0,715.0,710.0,695.0,730.0,695.0,695.0,680.0,685.0,635.0,695.0,690.0,335.0,340.0,340.0,360.0,340.0,345.0,350.0,355.0,355.0,355.0,360.0,360.0,340.0,430.0,375.0,380.0,380.0,380.0,380.0,385.0,385.0,395.0,400.0,400.0,415.0,415.0,425.0,370.0,335.0,305.0,330.0,265.0,270.0,270.0,275.0,275.0,275.0,280.0,280.0,280.0,285.0,285.0,285.0,290.0,330.0,290.0,300.0,430.0,310.0,310.0,310.0,310.0,315.0,315.0,315.0,315.0,325.0,325.0,325.0,295.0,435.0,490.0,440.0,545.0,550.0,550.0,555.0,555.0,560.0,565.0,565.0,575.0,575.0,580.0,590.0,600.0,545.0,600.0,635.0,645.0,650.0,660.0,690.0,695.0,715.0,750.0,805.0,805.0,850.0,945.0,980.0,620.0,435.0,545.0,530.0,445.0,445.0,450.0,460.0,465.0,470.0,475.0,475.0,475.0,480.0,480.0,485.0,485.0,535.0,265.0,500.0,505.0,505.0,505.0,505.0,505.0,510.0,515.0,515.0,520.0,525.0,525.0,530.0,490.0,265.0,545.0,260.0,110.0,110.0,115.0,115.0,120.0,125.0,130.0,130.0,135.0,135.0,135.0,135.0,135.0,110.0,135.0,140.0,145.0,145.0,145.0,145.0,145.0,150.0,150.0,150.0,150.0,155.0,155.0,160.0,140.0,110.0,105.0,105.0,260.0,25.0,40.0,40.0,45.0,50.0,50.0,55.0,55.0,60.0,65.0,70.0,70.0,70.0,85.0,85.0,90.0,90.0,95.0,95.0,95.0,100.0,100.0,100.0,100.0,100.0,105.0,105.0,105.0,160.0,165.0,500.0,170.0,205.0,205.0,205.0,210.0,210.0,215.0,215.0,220.0,225.0,225.0,230.0,230.0,230.0,230.0,230.0,230.0,240.0,245.0,245.0,245.0,245.0,250.0,250.0,250.0,255.0,255.0,260.0,165.0,260.0,205.0,200.0,250.0,200.0,170.0,200.0,170.0,175.0,175.0,180.0,180.0,180.0,180.0,180.0,180.0,185.0,185.0,185.0,175.0,185.0,185.0,195.0,190.0,195.0,190.0,190.0,190.0,190.0,185.0,190.0,185.0,185.0,185.0,195.0,425.0,385.0,390.0,395.0,395.0,405.0,405.0,410.0,415.0,385.0,445.0,430.0,430.0,430.0,435.0,440.0,460.0,460.0,480.0,485.0,495.0,385.0,500.0,425.0,380.0,345.0,380.0,500.0,310.0,315.0,315.0,315.0,320.0,325.0,325.0,335.0,335.0,340.0,340.0,345.0,345.0,345.0,345.0,350.0,355.0,355.0,365.0,370.0,370.0,370.0,375.0,375.0,380.0,505.0,655.0,515.0,655.0,655.0,655.0,660.0,660.0,665.0,665.0,665.0,670.0,680.0,695.0,655.0,695.0,715.0,730.0,735.0,740.0,740.0,775.0,795.0,860.0,865.0,895.0,935.0,705.0,305.0,650.0,650.0,515.0,515.0,515.0,515.0,520.0,530.0,530.0,530.0,535.0,535.0,565.0,570.0,575.0,580.0,590.0,590.0,595.0,600.0,605.0,605.0,615.0,635.0,635.0,645.0,650.0,510.0,305.0,250.0,305.0,155.0,155.0,155.0,160.0,160.0,165.0,165.0,165.0,165.0,170.0,170.0,150.0,170.0,170.0,175.0,175.0,175.0,180.0,180.0,180.0,180.0,185.0,190.0,190.0,170.0,195.0,150.0,145.0,50.0,60.0,60.0,75.0,75.0,85.0,90.0,90.0,100.0,105.0,105.0,145.0,105.0,110.0,115.0,115.0,130.0,130.0,135.0,135.0,135.0,145.0,145.0,145.0,110.0,200.0,200.0,200.0,260.0,265.0,265.0,265.0,265.0,270.0,270.0,270.0,275.0,275.0,280.0,260.0,285.0,285.0,290.0,290.0,290.0,290.0,295.0,300.0,300.0,300.0,300.0,305.0,285.0,255.0,255.0,255.0,200.0,205.0,205.0,205.0,210.0,210.0,210.0,215.0,215.0,225.0,225.0,225.0,230.0,230.0,235.0,235.0,240.0,240.0,240.0,240.0,245.0,245.0,245.0,250.0,250.0,305.0,185.0,25.0,1785.0,270.0,270.0,270.0,270.0,269.115,269.115,266.552,266.552,265.0,265.0,265.0,265.0,265.0,261.426,261.426,261.426,260.0,270.0,270.0,270.0,271.678,285.0,285.0,280.0,280.0,280.0,280.0,280.0,280.0,260.0,280.0,279.367,276.80400000000003,275.0,275.0,275.0,275.0,275.0,274.241,280.0,285.0,260.0,260.0,235.796,235.0,234.31799999999998,233.233,233.233,233.233,230.0,229.53599999999997,225.544,225.0,222.981,220.418,220.418,220.418,220.0,220.0,220.0,238.359,238.359,239.1,240.0,258.228,256.3,256.3,255.0,255.0,255.0,255.0,255.0,260.0,251.174,246.048,245.0,245.0,245.0,245.0,245.0,240.0,240.0,250.0,285.0,287.056,289.619,335.0,335.0,333.19,333.19,332.349,330.0,330.0,330.0,330.0,330.0,330.0,330.0,329.958,322.938,320.394,320.375,320.0,335.0,335.0,335.75300000000004,338.316,348.56800000000004,346.005,345.0,345.0,345.0,345.0,345.0,345.0,320.0,345.0,340.879,340.879,340.0,340.0,340.0,340.0,340.0,338.316,345.0,320.0,320.0,320.0,305.0,305.0,302.434,300.0,300.0,300.0,300.0,300.0,305.0,300.0,299.871,295.0,294.745,292.182,292.182,292.182,292.182,290.0,300.0,220.0,307.56,310.0,320.0,320.0,320.0,320.0,320.0,318.003,317.812,315.249,310.0,315.249,315.249,315.0,315.0,312.686,310.0,310.0,310.0,310.0,315.249,348.56800000000004,217.581,215.0,130.0,130.0,130.0,125.587,125.0,125.0,125.0,125.0,125.0,120.0,120.0,117.898,117.15899999999999,117.15899999999999,115.0,115.0,115.0,130.0,130.0,130.0,130.0,145.0,145.0,143.528,140.965,140.0,140.0,140.0,140.0,115.0,138.40200000000002,135.0,135.0,135.0,135.0,133.276,131.505,130.0,130.0,135.0,145.0,112.772,110.0,71.764,70.0,65.0,65.0,65.0,65.0,64.075,60.0,60.0,60.0,60.0,56.386,55.0,50.0,45.428999999999995,40.0,40.0,75.0,75.0,78.903,80.0,105.0,105.0,105.0,100.0,95.0,95.0,94.831,92.26799999999999,110.0,90.0,90.0,85.0,85.0,85.0,85.0,85.0,80.0,80.0,90.0,145.0,145.851,150.0,195.0,195.0,194.78799999999998,192.225,190.0,190.0,190.0,190.0,190.0,190.0,189.662,189.662,186.498,185.0,185.0,184.53599999999997,184.53599999999997,195.0,195.0,195.0,195.0,215.0,212.729,212.729,210.0,207.60299999999998,205.04,205.0,205.0,181.97299999999998,205.0,200.84400000000002,200.0,200.0,199.91400000000002,199.91400000000002,199.91400000000002,197.351,197.351,205.0,181.97299999999998,181.97299999999998,181.71599999999998,165.0,165.0,165.0,165.0,165.0,164.979,164.979,160.0,165.0,160.0,160.0,160.0,160.0,155.415,155.0,155.0,153.78,150.63299999999998,160.0,215.292,166.595,170.0,180.0,180.0,180.0,179.325,176.847,175.0,175.0,175.0,170.0,175.0,175.0,175.0,174.28400000000002,170.0,170.0,170.0,170.0,170.0,175.0,348.56800000000004,305.0,349.086,556.1709999999999,556.1709999999999,556.1709999999999,555.0,555.0,555.0,555.0,550.0,550.0,548.482,545.0,545.0,545.0,545.0,543.356,543.356,538.23,558.734,560.0,560.0,560.0,594.616,590.0,589.49,588.186,585.0,580.0,575.0,575.0,535.6669999999999,574.112,574.112,571.549,570.0,566.423,565.0,348.56800000000004,565.0,565.0,574.112,535.0,535.0,533.104,505.0,505.0,505.0,504.911,504.911,500.0,500.0,500.0,505.0,497.222,495.0,494.659,494.659,490.155,490.0,486.97,486.97,486.97,497.222,595.0,506.892,510.0,530.0,530.0,530.0,530.0,530.0,525.415,520.0,520.0,507.474,520.0,515.163,515.163,515.163,515.0,515.0,512.6,511.67400000000004,510.0,517.726,485.0,600.0,605.0,940.0,910.0,885.0,885.0,875.0,875.0,865.0,855.0,835.0,820.0,810.0,805.0,805.0,785.0,785.0,780.0,780.0,945.0,950.0,950.0,950.0,1520.0,1505.0,1485.0,1335.0,1320.0,1285.0,1240.0,1230.0,770.0,1165.0,1055.0,1002.133,980.0,965.0,965.0,960.0,960.0,955.0,1095.0,766.337,765.0,745.0,643.313,640.0,640.0,635.624,635.0,633.061,630.498,628.8330000000001,648.439,625.372,620.0,615.12,615.0,615.0,610.0,610.0,605.0,605.0,620.0,602.5319999999999,650.0,660.0,730.455,730.455,730.0,725.329,712.5139999999999,705.0,700.0,699.699,650.352,692.01,685.0,685.0,684.321,675.0,675.0,674.069,670.0,665.0,690.0,485.0,565.0,481.844,380.16900000000004,380.0,380.0,380.0,380.0,377.778,376.76099999999997,376.76099999999997,375.0,375.0,375.0,375.0,374.19800000000004,371.635,370.605,370.605,370.0,381.88699999999994,384.45,384.45,385.0,402.39099999999996,400.0,399.82800000000003,399.82800000000003,399.82800000000003,395.0,395.0,395.0,370.0,395.0,390.0,390.0,390.0,390.0,390.0,385.0,385.0,385.0,392.124,405.0,370.0,370.0,356.259,482.98199999999997,355.0,355.0,355.0,355.0,355.0,355.0,355.0,353.694,351.131,351.131,351.131,350.0,350.0,350.0,350.0,358.65,358.82,360.0,360.0,369.07199999999995,369.07199999999995,366.509,366.509,365.82300000000004,365.0,365.0,365.0,370.0,365.0,365.0,365.0,365.0,363.43199999999996,360.0,360.0,360.0,360.0,365.0,405.0,355.0,406.47,455.0,453.651,453.651,451.088,451.088,450.0,450.0,450.0,456.214,449.50800000000004,448.525,445.0,445.0,445.0,443.399,440.836,440.836,440.0,448.525,440.0,456.214,460.0,405.0,480.0,480.0,480.0,480.0,479.281,478.2,475.0,460.0,471.592,469.029,466.466,465.0,465.0,463.903,463.85400000000004,463.85400000000004,461.463,470.0,440.0,471.592,440.0,420.0,420.0,417.769,416.034,415.20599999999996,415.20599999999996,415.20599999999996,415.20599999999996,415.0,412.64300000000003,410.0,410.0,410.0,410.0,410.0,440.0,406.47,420.0,420.332,410.0,422.895,420.332,440.0,440.0,438.273,440.0,435.0,435.0,435.0,433.147,435.0,430.0,430.0,428.02099999999996,428.02099999999996,428.02099999999996,425.458,425.458,430.0,425.0,570.0,490.0,500.0,505.0,505.0,515.0,525.0,555.0,545.0,545.0,560.0,585.0,570.0,525.0,480.0,455.0,470.0,435.0,435.0,590.0,440.0,445.0,445.0,470.0,450.0,450.0,460.0,460.0,465.0,465.0,470.0,450.0,590.0,770.0,625.0,795.0,795.0,820.0,830.0,840.0,850.0,790.0,875.0,975.0,1000.0,1005.0,1135.0,435.0,1305.0,890.0,615.0,770.0,760.0,630.0,640.0,640.0,650.0,655.0,680.0,765.0,685.0,690.0,695.0,695.0,705.0,730.0,755.0,685.0,435.0,265.0,425.0,220.0,225.0,235.0,235.0,240.0,240.0,215.0,245.0,260.0,265.0,265.0,275.0,275.0,275.0,260.0,280.0,210.0,190.0,1400.0,60.0,75.0,75.0,85.0,115.0,210.0,115.0,140.0,145.0,150.0,155.0,165.0,180.0,135.0,430.0,280.0,280.0,345.0,355.0,355.0,365.0,365.0,365.0,345.0,370.0,385.0,385.0,395.0,405.0,410.0,415.0,370.0,280.0,345.0,330.0,290.0,295.0,295.0,300.0,310.0,310.0,335.0,315.0,325.0,325.0,325.0,325.0,325.0,330.0,320.0,1420.0],"concentration":["7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","7 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","9 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","10 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","12 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM","14 uM"]},"selected":{"id":"2010"},"selection_policy":{"id":"2009"}},"id":"1993","type":"ColumnDataSource"},{"attributes":{},"id":"1926","type":"DataRange1d"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"height":{"value":0.1},"left":{"field":"top_whisker"},"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"right":{"field":"top_whisker"},"y":{"field":"cat"}},"id":"1971","type":"HBar"},{"attributes":{},"id":"2009","type":"UnionRenderers"},{"attributes":{"source":{"id":"1954"}},"id":"1968","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"cat","transform":{"id":"1992"}},"line_alpha":{"value":0.1},"line_color":{"field":"cat","transform":{"id":"1992"}},"x":{"field":"catastrophe time"},"y":{"field":"cat","transform":{"id":"1994"}}},"id":"1997","type":"Circle"},{"attributes":{},"id":"2005","type":"BasicTickFormatter"},{"attributes":{"source":{"id":"1954"}},"id":"1988","type":"CDSView"},{"attributes":{"factors":["7 uM","9 uM","10 uM","12 uM","14 uM"],"palette":["#FEAE76","#F0605D","#B53679","#711F81","#2B115E"]},"id":"1958","type":"CategoricalColorMapper"},{"attributes":{"factors":["7 uM","9 uM","10 uM","12 uM","14 uM"],"palette":["#FEAE76","#F0605D","#B53679","#711F81","#2B115E"]},"id":"1992","type":"CategoricalColorMapper"},{"attributes":{},"id":"2010","type":"Selection"},{"attributes":{"callback":null,"tooltips":[["concentration","@{concentration}"],["catastrophe time","@{catastrophe time}"]]},"id":"1990","type":"HoverTool"},{"attributes":{"data_source":{"id":"1954"},"glyph":{"id":"1985"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1986"},"selection_glyph":null,"view":{"id":"1988"}},"id":"1987","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#1f77b4"},"height":{"value":0.1},"left":{"field":"top_whisker"},"line_color":{"value":"gray"},"right":{"field":"top_whisker"},"y":{"field":"cat"}},"id":"1970","type":"HBar"},{"attributes":{"data":{"__label":["7 uM","9 uM","10 uM","12 uM","14 uM"],"bottom":[165.0,170.0,200.0,219.39525,280.0],"bottom_whisker":[35.0,25.0,50.0,25.0,60.0],"cat":["7 uM","9 uM","10 uM","12 uM","14 uM"],"middle":[260.0,260.0,305.0,348.56800000000004,435.0],"top":[440.0,435.0,501.25,483.4865,615.0],"top_whisker":[850.0,805.0,935.0,875.0,1005.0]},"selected":{"id":"2008"},"selection_policy":{"id":"2007"}},"id":"1954","type":"ColumnDataSource"},{"attributes":{"factors":["14 uM","12 uM","10 uM","9 uM","7 uM"]},"id":"1924","type":"FactorRange"},{"attributes":{"source":{"id":"1954"}},"id":"1963","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"height":{"value":0.4},"left":{"field":"middle"},"line_alpha":{"value":0.1},"line_color":{"value":"gray"},"right":{"field":"middle"},"y":{"field":"cat"}},"id":"1986","type":"HBar"},{"attributes":{"text":"Strip plot of catastrophe times by concentration"},"id":"2001","type":"Title"},{"attributes":{"line_color":{"value":"gray"},"x0":{"field":"bottom"},"x1":{"field":"bottom_whisker"},"y0":{"field":"cat"},"y1":{"field":"cat"}},"id":"1965","type":"Segment"}],"root_ids":["1925"]},"title":"Bokeh Application","version":"2.2.3"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('2224').textContent;
+                  var render_items = [{"docid":"568f4501-ba24-4527-9721-0d5a903f00e2","root_ids":["1925"],"roots":{"1925":"f2fc23b0-41a5-4e2e-94b7-c3bd2e947ec6"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>

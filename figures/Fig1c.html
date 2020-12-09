@@ -1,0 +1,554 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Labeled vs unlabeled catastrophe times</title>
+      
+      
+        
+          
+        <style>
+            .panel-widget-box {
+                	min-height: 20px;
+                	background-color: #f5f5f5;
+                	border: 1px solid #e3e3e3 !important;
+                	border-radius: 4px;
+                	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	overflow-x: hidden;
+                	overflow-y: hidden;
+                }
+
+                .scrollable {
+                  overflow: scroll;
+                }
+
+                progress {
+                	appearance: none;
+                	-moz-appearance: none;
+                	-webkit-appearance: none;
+
+                	border: none;
+                	height: 20px;
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                	color: royalblue;
+                	position: relative;
+                	margin: 0 0 1.5em;
+                }
+
+                progress[value]::-webkit-progress-bar {
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                }
+
+                progress[value]::-webkit-progress-value {
+                	position: relative;
+
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress.active:not([value])::before {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress[value]::-moz-progress-bar {
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress:not([value])::-moz-progress-bar {
+                	border-radius:3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+
+                }
+
+                progress.active:not([value])::-moz-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.active:not([value])::-webkit-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.primary[value]::-webkit-progress-value { background-color: #007bff; }
+                progress.primary:not([value])::before { background-color: #007bff; }
+                progress.primary:not([value])::-webkit-progress-bar { background-color: #007bff; }
+                progress.primary::-moz-progress-bar { background-color: #007bff; }
+
+                progress.secondary[value]::-webkit-progress-value { background-color: #6c757d; }
+                progress.secondary:not([value])::before { background-color: #6c757d; }
+                progress.secondary:not([value])::-webkit-progress-bar { background-color: #6c757d; }
+                progress.secondary::-moz-progress-bar { background-color: #6c757d; }
+
+                progress.success[value]::-webkit-progress-value { background-color: #28a745; }
+                progress.success:not([value])::before { background-color: #28a745; }
+                progress.success:not([value])::-webkit-progress-bar { background-color: #28a745; }
+                progress.success::-moz-progress-bar { background-color: #28a745; }
+
+                progress.danger[value]::-webkit-progress-value { background-color: #dc3545; }
+                progress.danger:not([value])::before { background-color: #dc3545; }
+                progress.danger:not([value])::-webkit-progress-bar { background-color: #dc3545; }
+                progress.danger::-moz-progress-bar { background-color: #dc3545; }
+
+                progress.warning[value]::-webkit-progress-value { background-color: #ffc107; }
+                progress.warning:not([value])::before { background-color: #ffc107; }
+                progress.warning:not([value])::-webkit-progress-bar { background-color: #ffc107; }
+                progress.warning::-moz-progress-bar { background-color: #ffc107; }
+
+                progress.info[value]::-webkit-progress-value { background-color: #17a2b8; }
+                progress.info:not([value])::before { background-color: #17a2b8; }
+                progress.info:not([value])::-webkit-progress-bar { background-color: #17a2b8; }
+                progress.info::-moz-progress-bar { background-color: #17a2b8; }
+
+                progress.light[value]::-webkit-progress-value { background-color: #f8f9fa; }
+                progress.light:not([value])::before { background-color: #f8f9fa; }
+                progress.light:not([value])::-webkit-progress-bar { background-color: #f8f9fa; }
+                progress.light::-moz-progress-bar { background-color: #f8f9fa; }
+
+                progress.dark[value]::-webkit-progress-value { background-color: #343a40; }
+                progress.dark:not([value])::-webkit-progress-bar { background-color: #343a40; }
+                progress.dark:not([value])::before { background-color: #343a40; }
+                progress.dark::-moz-progress-bar { background-color: #343a40; }
+
+                progress:not([value])::-webkit-progress-bar {
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+                progress:not([value])::before {
+                	content:" ";
+                	position:absolute;
+                	height: 20px;
+                	top:0;
+                	left:0;
+                	right:0;
+                	bottom:0;
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+
+                @keyframes stripes {
+                  from {background-position: 0%}
+                  to {background-position: 100%}
+                }
+
+        </style>
+        <style>
+            .codehilite .hll { background-color: #ffffcc }
+                .codehilite  { background: #f8f8f8; }
+                .codehilite .c { color: #408080; font-style: italic } /* Comment */
+                .codehilite .err { border: 1px solid #FF0000 } /* Error */
+                .codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+                .codehilite .o { color: #666666 } /* Operator */
+                .codehilite .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+                .codehilite .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+                .codehilite .cp { color: #BC7A00 } /* Comment.Preproc */
+                .codehilite .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+                .codehilite .c1 { color: #408080; font-style: italic } /* Comment.Single */
+                .codehilite .cs { color: #408080; font-style: italic } /* Comment.Special */
+                .codehilite .gd { color: #A00000 } /* Generic.Deleted */
+                .codehilite .ge { font-style: italic } /* Generic.Emph */
+                .codehilite .gr { color: #FF0000 } /* Generic.Error */
+                .codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+                .codehilite .gi { color: #00A000 } /* Generic.Inserted */
+                .codehilite .go { color: #888888 } /* Generic.Output */
+                .codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+                .codehilite .gs { font-weight: bold } /* Generic.Strong */
+                .codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+                .codehilite .gt { color: #0044DD } /* Generic.Traceback */
+                .codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+                .codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+                .codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+                .codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+                .codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+                .codehilite .kt { color: #B00040 } /* Keyword.Type */
+                .codehilite .m { color: #666666 } /* Literal.Number */
+                .codehilite .s { color: #BA2121 } /* Literal.String */
+                .codehilite .na { color: #7D9029 } /* Name.Attribute */
+                .codehilite .nb { color: #008000 } /* Name.Builtin */
+                .codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+                .codehilite .no { color: #880000 } /* Name.Constant */
+                .codehilite .nd { color: #AA22FF } /* Name.Decorator */
+                .codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+                .codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+                .codehilite .nf { color: #0000FF } /* Name.Function */
+                .codehilite .nl { color: #A0A000 } /* Name.Label */
+                .codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+                .codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+                .codehilite .nv { color: #19177C } /* Name.Variable */
+                .codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+                .codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+                .codehilite .mb { color: #666666 } /* Literal.Number.Bin */
+                .codehilite .mf { color: #666666 } /* Literal.Number.Float */
+                .codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+                .codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+                .codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+                .codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+                .codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+                .codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+                .codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+                .codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+                .codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+                .codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+                .codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+                .codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+                .codehilite .sx { color: #008000 } /* Literal.String.Other */
+                .codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+                .codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+                .codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+                .codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+                .codehilite .fm { color: #0000FF } /* Name.Function.Magic */
+                .codehilite .vc { color: #19177C } /* Name.Variable.Class */
+                .codehilite .vg { color: #19177C } /* Name.Variable.Global */
+                .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+                .codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+                .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+                .markdown h1 { margin-block-start: 0.34em }
+                .markdown h2 { margin-block-start: 0.42em }
+                .markdown h3 { margin-block-start: 0.5em }
+                .markdown h4 { margin-block-start: 0.67em }
+                .markdown h5 { margin-block-start: 0.84em }
+                .markdown h6 { margin-block-start: 1.17em }
+                .markdown ul { padding-inline-start: 2em }
+                .markdown ol { padding-inline-start: 2em }
+                .markdown strong { font-weight: 600 }
+                .markdown a { color: -webkit-link }
+                .markdown a { color: -moz-hyperlinkText }
+
+        </style>
+        <style>
+            .json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-row,
+                .json-formatter-row a,
+                .json-formatter-row a:hover {
+                  color: black;
+                  text-decoration: none;
+                }
+                .json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-row .json-formatter-string,
+                .json-formatter-row .json-formatter-stringifiable {
+                  color: green;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-row .json-formatter-number {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-boolean {
+                  color: red;
+                }
+                .json-formatter-row .json-formatter-null {
+                  color: #855A00;
+                }
+                .json-formatter-row .json-formatter-undefined {
+                  color: #ca0b69;
+                }
+                .json-formatter-row .json-formatter-function {
+                  color: #FF20ED;
+                }
+                .json-formatter-row .json-formatter-date {
+                  background-color: rgba(0, 0, 0, 0.05);
+                }
+                .json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: blue;
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-bracket {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-key {
+                  color: #00008B;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+                .json-formatter-dark.json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-dark.json-formatter-row,
+                .json-formatter-dark.json-formatter-row a,
+                .json-formatter-dark.json-formatter-row a:hover {
+                  color: white;
+                  text-decoration: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-string,
+                .json-formatter-dark.json-formatter-row .json-formatter-stringifiable {
+                  color: #31F031;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-number {
+                  color: #66C2FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-boolean {
+                  color: #EC4242;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-null {
+                  color: #EEC97D;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-undefined {
+                  color: #ef8fbe;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-function {
+                  color: #FD48CB;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-date {
+                  background-color: rgba(255, 255, 255, 0.05);
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: #027BFF;
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-bracket {
+                  color: #9494FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-key {
+                  color: #23A0DB;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-dark.json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-dark.json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+
+        </style>
+        <style>
+            table.panel-df {
+                    margin-left: auto;
+                    margin-right: auto;
+                    border: none;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    color: black;
+                    font-size: 12px;
+                    table-layout: fixed;
+                    width: 100%;
+                }
+
+                .panel-df tr, .panel-df th, .panel-df td {
+                    text-align: right;
+                    vertical-align: middle;
+                    padding: 0.5em 0.5em !important;
+                    line-height: normal;
+                    white-space: normal;
+                    max-width: none;
+                    border: none;
+                }
+
+                .panel-df tbody {
+                    display: table-row-group;
+                    vertical-align: middle;
+                    border-color: inherit;
+                }
+
+                .panel-df tbody tr:nth-child(odd) {
+                    background: #f5f5f5;
+                }
+
+                .panel-df thead {
+                    border-bottom: 1px solid black;
+                    vertical-align: bottom;
+                }
+
+                .panel-df tr:hover {
+                    background: lightblue !important;
+                    cursor: pointer;
+                }
+
+        </style>
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js" integrity="sha384-T2yuo9Oe71Cz/I4X9Ac5+gpEa5a8PpJCDlqKYO0CfAuEszu1JrXLl8YugMqYe3sM" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="7fc8bc5e-fd69-479b-8320-210aae49c8ed" data-root-id="1726"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="2082">
+          {"c41f2d53-c40a-4eef-89e7-d95d58045377":{"roots":{"references":[{"attributes":{"below":[{"id":"1737"}],"center":[{"id":"1740"},{"id":"1744"},{"id":"1772"}],"left":[{"id":"1741"}],"plot_height":400,"plot_width":500,"renderers":[{"id":"1762"},{"id":"1777"},{"id":"1792"},{"id":"1810"}],"title":{"id":"1727"},"toolbar":{"id":"1752"},"x_range":{"id":"1729"},"x_scale":{"id":"1733"},"y_range":{"id":"1731"},"y_scale":{"id":"1735"}},"id":"1726","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1746","type":"WheelZoomTool"},{"attributes":{"data_source":{"id":"1774"},"glyph":{"id":"1775"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1776"},"selection_glyph":null,"view":{"id":"1778"}},"id":"1777","type":"GlyphRenderer"},{"attributes":{"axis":{"id":"1741"},"dimension":1,"ticker":null},"id":"1744","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"crimson"},"line_alpha":{"value":0.1},"line_color":{"value":"crimson"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1761","type":"Circle"},{"attributes":{"axis_label":"ECDF","formatter":{"id":"1767"},"ticker":{"id":"1742"}},"id":"1741","type":"LinearAxis"},{"attributes":{},"id":"1742","type":"BasicTicker"},{"attributes":{},"id":"1767","type":"BasicTickFormatter"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"forestgreen"},"line_alpha":{"value":0.1},"line_color":{"value":"forestgreen"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1809","type":"Circle"},{"attributes":{},"id":"1750","type":"HelpTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1745"},{"id":"1746"},{"id":"1747"},{"id":"1748"},{"id":"1749"},{"id":"1750"}]},"id":"1752","type":"Toolbar"},{"attributes":{"label":{"value":"unlabeled tubulin"},"renderers":[{"id":"1792"},{"id":"1810"}]},"id":"1806","type":"LegendItem"},{"attributes":{},"id":"1745","type":"PanTool"},{"attributes":{"data_source":{"id":"1789"},"glyph":{"id":"1790"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1791"},"selection_glyph":null,"view":{"id":"1793"}},"id":"1792","type":"GlyphRenderer"},{"attributes":{"overlay":{"id":"1751"}},"id":"1747","type":"BoxZoomTool"},{"attributes":{},"id":"1748","type":"SaveTool"},{"attributes":{},"id":"1769","type":"Selection"},{"attributes":{},"id":"1749","type":"ResetTool"},{"attributes":{"data_source":{"id":"1759"},"glyph":{"id":"1760"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1761"},"selection_glyph":null,"view":{"id":"1763"}},"id":"1762","type":"GlyphRenderer"},{"attributes":{"axis_label":"time to catastrophe (s)","formatter":{"id":"1765"},"ticker":{"id":"1738"}},"id":"1737","type":"LinearAxis"},{"attributes":{},"id":"1770","type":"UnionRenderers"},{"attributes":{},"id":"1803","type":"Selection"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAwdkAAAAAAAJB6QAAAAAAA4IBAAAAAAACQcEAAAAAAAFycQAAAAAAAAGRAAAAAAAAgd0AAAAAAAMB8QAAAAAAAwGdAAAAAAABAYEAAAAAAAMB8QAAAAAAAgGFAAAAAAABwckAAAAAAANB7QAAAAAAAQGpAAAAAAACAdkAAAAAAAPiBQAAAAAAAAHRAAAAAAACAZkAAAAAAAIBmQAAAAAAAOINAAAAAAAAgYkAAAAAAADCLQAAAAAAAQHpAAAAAAADAfEAAAAAAAJBwQAAAAAAAwGJAAAAAAAAQiEAAAAAAAMBSQAAAAAAAAERAAAAAAACgbkAAAAAAAOiHQAAAAAAAoHRAAAAAAAAQc0AAAAAAAFB5QAAAAAAAgHFAAAAAAACAZkAAAAAAADB2QAAAAAAAwHdAAAAAAACweEAAAAAAAKB5QAAAAAAA8IRAAAAAAABgbUAAAAAAAGBjQAAAAAAAaIBAAAAAAADgYEAAAAAAAFiRQAAAAAAAAE5AAAAAAADAgkAAAAAAAEB6QAAAAAAAQF9AAAAAAADgf0AAAAAAAHCHQAAAAAAAkH9AAAAAAAAAeUAAAAAAAFB5QAAAAAAAQG9AAAAAAADQe0AAAAAAAPB+QAAAAAAAQGBAAAAAAACgfkAAAAAAAEBVQAAAAAAAYG1AAAAAAABAVUAAAAAAAPB0QAAAAAAAAGRAAAAAAABAZUAAAAAAAOCFQAAAAAAAuIVAAAAAAADweUAAAAAAABBzQAAAAAAAIGJAAAAAAADgdUAAAAAAAACEQAAAAAAAoGRAAAAAAAAgd0AAAAAAAGiAQAAAAAAAsI1AAAAAAABAX0AAAAAAAJyTQAAAAAAAYGNAAAAAAAD4hkAAAAAAAOBqQAAAAAAAYGhAAAAAAACghEAAAAAAAABUQAAAAAAAYG1AAAAAAABAf0AAAAAAAOSRQAAAAAAA4IBAAAAAAACAZkAAAAAAACBiQAAAAAAASIdAAAAAAABgeEAAAAAAAAiWQA==","dtype":"float64","order":"little","shape":[95]},"y":{"__ndarray__":"/wChD2MS1j9X0S7LqhbgP2cXCX2td+Q/airxwIKrzj+ViPN0iorrP7jvnrUND68/ViEtxMYX2D+C4XSlXBnhP2RoqIUsi8I/AAAAAAAAAACC4XSlXBnhPwAAAAAAAAAAi7UEFSVb0T+71vAT5mzgP4KTuMsGPcU/jhapMlBr1z8vIo0OJCTlP+HVkMmIYNM/UiQQ8+9Ouj9SJBDz7066P/YsEaCa0OU/AAAAAAAAAAA/aGfAJoXpPyCNVXNo1N4/guF0pVwZ4T9qKvHAgqvOPwjaeyLgx50/22Kld+su6T8AAAAAAAAAAAAAAAAAAAAATP/geqj5yz93XeMusNjoP6ngFFv/DNQ/UsCIppsH0j8CYkUtjiLcP8SqgIOurtA/UiQQ8+9Ouj//AKEPYxLWP+Q2NeezcNk/ckw9CqHJ2j+Qd01Qe3vdPyE9V3pM0+Y/oL7IEeHuxz9AQ16dpEekP6AMhes2y+M/AAAAAAAAAAAGc+tRnTHqPwAAAAAAAAAAkidPV1965T8gjVVzaNTePwAAAAAAAAAAPAfDovt04z8UWCHmdILoP9gBAVrAHuM/OlfBmxd22z8CYkUtjiLcP9oU6Z2VUs0/u9bwE+Zs4D8R93zISXLiPwAAAAAAAAAArfG6fw4c4j8AAAAAAAAAAKC+yBHh7sc/AAAAAAAAAABw65jsdbnUP7jvnrUND68/NPn/rBWdtz/pR9sLw3/nP4VCGcOHKec/WILR4fEn3j9SwIimmwfSPwAAAAAAAAAAN/Ycfuxl1T9aMtPo1SbmPxbO72Y767Q/ViEtxMYX2D+gDIXrNsvjP6JtKQli2+k/AAAAAAAAAADOfW/jE97qP0BDXp2kR6Q/TE2dVP7V5z8QqcDu85XGP/J9sKgZ5MM/vTeVMRF95j8AAAAAAAAAAKC+yBHh7sc/dfw+EYXI4j9qeK2a2IfqP2cXCX2td+Q/UiQQ8+9Ouj8AAAAAAAAAALBSX505LOg/rEG5eCod2j8xgzEsTzTrPw==","dtype":"float64","order":"little","shape":[95]}},"selected":{"id":"1803"},"selection_policy":{"id":"1804"}},"id":"1789","type":"ColumnDataSource"},{"attributes":{"items":[{"id":"1773"},{"id":"1806"}],"location":"bottom_right"},"id":"1772","type":"Legend"},{"attributes":{},"id":"1804","type":"UnionRenderers"},{"attributes":{},"id":"1786","type":"Selection"},{"attributes":{},"id":"1731","type":"DataRange1d"},{"attributes":{"source":{"id":"1759"}},"id":"1763","type":"CDSView"},{"attributes":{"data":{"x":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[211]},"y":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[211]}},"selected":{"id":"1769"},"selection_policy":{"id":"1770"}},"id":"1759","type":"ColumnDataSource"},{"attributes":{"label":{"value":"labeled tubulin"},"renderers":[{"id":"1762"},{"id":"1777"}]},"id":"1773","type":"LegendItem"},{"attributes":{},"id":"1729","type":"DataRange1d"},{"attributes":{},"id":"1787","type":"UnionRenderers"},{"attributes":{"fill_color":{"value":"forestgreen"},"line_color":{"value":"forestgreen"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1790","type":"Circle"},{"attributes":{"source":{"id":"1774"}},"id":"1778","type":"CDSView"},{"attributes":{"axis":{"id":"1737"},"ticker":null},"id":"1740","type":"Grid"},{"attributes":{"fill_color":{"value":"forestgreen"},"line_color":{"value":"forestgreen"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1808","type":"Circle"},{"attributes":{"fill_color":{"value":"crimson"},"line_color":{"value":"crimson"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1760","type":"Circle"},{"attributes":{"source":{"id":"1807"}},"id":"1811","type":"CDSView"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1751","type":"BoxAnnotation"},{"attributes":{"text":"DKW ECDF Confidence Interval Bounds for Catastrophe Times"},"id":"1727","type":"Title"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAwdkAAAAAAAJB6QAAAAAAA4IBAAAAAAACQcEAAAAAAAFycQAAAAAAAAGRAAAAAAAAgd0AAAAAAAMB8QAAAAAAAwGdAAAAAAABAYEAAAAAAAMB8QAAAAAAAgGFAAAAAAABwckAAAAAAANB7QAAAAAAAQGpAAAAAAACAdkAAAAAAAPiBQAAAAAAAAHRAAAAAAACAZkAAAAAAAIBmQAAAAAAAOINAAAAAAAAgYkAAAAAAADCLQAAAAAAAQHpAAAAAAADAfEAAAAAAAJBwQAAAAAAAwGJAAAAAAAAQiEAAAAAAAMBSQAAAAAAAAERAAAAAAACgbkAAAAAAAOiHQAAAAAAAoHRAAAAAAAAQc0AAAAAAAFB5QAAAAAAAgHFAAAAAAACAZkAAAAAAADB2QAAAAAAAwHdAAAAAAACweEAAAAAAAKB5QAAAAAAA8IRAAAAAAABgbUAAAAAAAGBjQAAAAAAAaIBAAAAAAADgYEAAAAAAAFiRQAAAAAAAAE5AAAAAAADAgkAAAAAAAEB6QAAAAAAAQF9AAAAAAADgf0AAAAAAAHCHQAAAAAAAkH9AAAAAAAAAeUAAAAAAAFB5QAAAAAAAQG9AAAAAAADQe0AAAAAAAPB+QAAAAAAAQGBAAAAAAACgfkAAAAAAAEBVQAAAAAAAYG1AAAAAAABAVUAAAAAAAPB0QAAAAAAAAGRAAAAAAABAZUAAAAAAAOCFQAAAAAAAuIVAAAAAAADweUAAAAAAABBzQAAAAAAAIGJAAAAAAADgdUAAAAAAAACEQAAAAAAAoGRAAAAAAAAgd0AAAAAAAGiAQAAAAAAAsI1AAAAAAABAX0AAAAAAAJyTQAAAAAAAYGNAAAAAAAD4hkAAAAAAAOBqQAAAAAAAYGhAAAAAAACghEAAAAAAAABUQAAAAAAAYG1AAAAAAABAf0AAAAAAAOSRQAAAAAAA4IBAAAAAAACAZkAAAAAAACBiQAAAAAAASIdAAAAAAABgeEAAAAAAAAiWQA==","dtype":"float64","order":"little","shape":[95]},"y":{"__ndarray__":"Vm/pnRz04z8twEfhlQHpPz0GIpOYYu0/cDlVxsuV4D8AAAAAAADwP6O75eK3t9U/gX8veM725D9Y0I27RwTqP94RBm9sG9s/sp96Zyz2zT9Y0I27RwTqPy9wSeh5ANE/nEmboH2Y4T+RxQkq0VfpP20nDpJZdNw/HXptL5Og5D8FEaYkDw/uP8ZZ4Xovm+I/wOb1KJJp2D/A5vUokmnYP8wbKraFu+4/9nrNefCs0T8AAAAAAADwP2a1w08fVeg/WNCNu0cE6j9wOVXGy5XgP0ybWS5UstM/AAAAAAAA8D9YHkqVneDFPzvzOU/DLsM/Ul2iaarS3z8AAAAAAADwPypfo8Nq8eI//05d6bju4T/Xn7ssMvzmPzhE2VdCQuE/wOb1KJJp2D9Wb+mdHPTjP0iKswlFo+U/D5U3m7tP5j+eqj++qKjnP/crcJA3vu8//DwWtUbN3T8Upt2/yl7UP3b7nQEituw/aGXFVgNU0D8AAAAAAADwP8oIQnKwh8Q/aBZobUpl7j9mtcNPH1XoP5R0aiFSRMs/EvbbuOZf7D8AAAAAAADwP67wGXCrCew/c5r54/al5j/Xn7ssMvzmPww0k32QP+A/kcUJKtFX6T/n5ZXeNF3rP7Kfemcs9s0/g+DTlfkG6z92SVrbd5LIP/w8FrVGzd0/dkla23eSyD+OZGUMpkfjP6O75eK3t9U/+dtxlxu91z8AAAAAAADwPwAAAAAAAPA/ArABB+T+5z//Tl3puO7hP/Z6zXnwrNE/8mknVeGd4z8wIez+wBHvPzLR7QWlENc/gX8veM725D92+50BIrbsPwAAAAAAAPA/lHRqIVJEyz8AAAAAAADwPxSm3b/KXtQ/AAAAAAAA8D80MpIj0CDdP6UcigDjx9s/kyauR/xn7z/nM1K4ijnHP/w8FrVGzd0/S+tXJ3Cz6z8AAAAAAADwPz0GIpOYYu0/wOb1KJJp2D/2es158KzRPwAAAAAAAPA/rI91UoD55T8AAAAAAADwPw==","dtype":"float64","order":"little","shape":[95]}},"selected":{"id":"1823"},"selection_policy":{"id":"1824"}},"id":"1807","type":"ColumnDataSource"},{"attributes":{},"id":"1765","type":"BasicTickFormatter"},{"attributes":{"fill_color":{"value":"crimson"},"line_color":{"value":"crimson"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1775","type":"Circle"},{"attributes":{"data_source":{"id":"1807"},"glyph":{"id":"1808"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1809"},"selection_glyph":null,"view":{"id":"1811"}},"id":"1810","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"crimson"},"line_alpha":{"value":0.1},"line_color":{"value":"crimson"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1776","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"forestgreen"},"line_alpha":{"value":0.1},"line_color":{"value":"forestgreen"},"size":{"units":"screen","value":2},"x":{"field":"x"},"y":{"field":"y"}},"id":"1791","type":"Circle"},{"attributes":{},"id":"1738","type":"BasicTicker"},{"attributes":{},"id":"1823","type":"Selection"},{"attributes":{},"id":"1824","type":"UnionRenderers"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAABgfUAAAAAAAByWQAAAAAAAQGBAAAAAAACAcUAAAAAAADCBQAAAAAAAQFBAAAAAAACgdEAAAAAAAFB0QAAAAAAAQHVAAAAAAADAV0AAAAAAAIBLQAAAAAAAgHZAAAAAAACAa0AAAAAAACBsQAAAAAAAAHRAAAAAAAAATkAAAAAAAEBqQAAAAAAAYGNAAAAAAABYi0AAAAAAAECPQAAAAAAAsH1AAAAAAABwckAAAAAAAKBuQAAAAAAA8HlAAAAAAAAQc0AAAAAAAAB0QAAAAAAAIHdAAAAAAACQf0AAAAAAAHCSQAAAAAAAgHtAAAAAAABgg0AAAAAAAIBhQAAAAAAAgGZAAAAAAAAYhUAAAAAAAEBQQAAAAAAA4HBAAAAAAADAYkAAAAAAAICBQAAAAAAACIFAAAAAAACgdEAAAAAAAGB4QAAAAAAAwFJAAAAAAABQhEAAAAAAANiDQAAAAAAA4IBAAAAAAAAQc0AAAAAAAPiBQAAAAAAA8IRAAAAAAABIgkAAAAAAAIiDQAAAAAAAoIlAAAAAAAAwe0AAAAAAANiDQAAAAAAAQFpAAAAAAADAV0AAAAAAAOBvQAAAAAAAQH9AAAAAAAAAXkAAAAAAAOBwQAAAAAAAQGBAAAAAAACgfkAAAAAAAGiAQAAAAAAA+IZAAAAAAAAgd0AAAAAAAEB1QAAAAAAA6IJAAAAAAACgbkAAAAAAAOBvQAAAAAAAkIBAAAAAAAAgbEAAAAAAAIBxQAAAAAAASIdAAAAAAABAdUAAAAAAAKBpQAAAAAAAoG5AAAAAAADgYEAAAAAAAHCMQAAAAAAAQHVAAAAAAADAXEAAAAAAAIBmQAAAAAAAAG5AAAAAAACQikAAAAAAACBnQAAAAAAAYHhAAAAAAACAZkAAAAAAAGiAQAAAAAAAYG1AAAAAAABAWkAAAAAAACByQAAAAAAAwHdAAAAAAACAcUAAAAAAAKCEQAAAAAAAAIRAAAAAAAAQiEAAAAAAAOCKQAAAAAAAIHJAAAAAAADAZ0AAAAAAAJB1QAAAAAAASIJAAAAAAACAe0AAAAAAAACEQAAAAAAAGIpAAAAAAAAgckAAAAAAAMB3QAAAAAAAsHhAAAAAAAAgZ0AAAAAAAKB+QAAAAAAA4HBAAAAAAADgikAAAAAAAJB6QAAAAAAA0HtAAAAAAABAdUAAAAAAAOBgQAAAAAAASIdAAAAAAACgjkAAAAAAAMCCQAAAAAAAkI9AAAAAAADYjUAAAAAAAGBjQAAAAAAAEHhAAAAAAAAQeEAAAAAAAIBhQAAAAAAAQHpAAAAAAADAgkAAAAAAAACJQAAAAAAAoHlAAAAAAABAb0AAAAAAACBnQAAAAAAAAIlAAAAAAACoi0AAAAAAAKiLQAAAAAAAQIBAAAAAAACQdUAAAAAAAOBgQAAAAAAA8HlAAAAAAADIhEAAAAAAAIBrQAAAAAAAsHhAAAAAAABgY0AAAAAAAFB0QAAAAAAAMIFAAAAAAACAdkAAAAAAAAB5QAAAAAAAwGdAAAAAAAC4gEAAAAAAANBxQAAAAAAAQGVAAAAAAAAAeUAAAAAAACByQAAAAAAApJVAAAAAAAAQiEAAAAAAAEB/QAAAAAAAAGlAAAAAAABAf0AAAAAAAEBwQAAAAAAACJtAAAAAAABAakAAAAAAAJiCQAAAAAAAMHFAAAAAAADgf0AAAAAAAESWQAAAAAAAAIRAAAAAAAAAaUAAAAAAAABeQAAAAAAA4IBAAAAAAADQdkAAAAAAAIBxQAAAAAAAQGVAAAAAAAAAWUAAAAAAAMBnQAAAAAAA6JdAAAAAAAAAXkAAAAAAAESRQAAAAAAAAFRAAAAAAAAgbEAAAAAAADCGQAAAAAAA0ItAAAAAAABAhUAAAAAAANBxQAAAAAAAYGhAAAAAAABQhEAAAAAAAOB1QAAAAAAAYGNAAAAAAAAckUAAAAAAABB9QAAAAAAA4GpAAAAAAADQdkAAAAAAAOiCQAAAAAAAQIBAAAAAAACAcUAAAAAAABCDQAAAAAAA6IdAAAAAAAAgckAAAAAAAABuQAAAAAAAgGZAAAAAAAAgbEAAAAAAABiQQAAAAAAAYGNAAAAAAADgakAAAAAAAAiGQAAAAAAA0HFAAAAAAADgYEAAAAAAABB9QAAAAAAAAFRAAAAAAAAgd0AAAAAAAAB+QAAAAAAAYGhAAAAAAAAIhkAAAAAAAMByQAAAAAAA6IJAAAAAAADAgkA=","dtype":"float64","order":"little","shape":[211]},"y":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[211]}},"selected":{"id":"1786"},"selection_policy":{"id":"1787"}},"id":"1774","type":"ColumnDataSource"},{"attributes":{},"id":"1735","type":"LinearScale"},{"attributes":{},"id":"1733","type":"LinearScale"},{"attributes":{"source":{"id":"1789"}},"id":"1793","type":"CDSView"}],"root_ids":["1726"]},"title":"Bokeh Application","version":"2.2.3"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('2082').textContent;
+                  var render_items = [{"docid":"c41f2d53-c40a-4eef-89e7-d95d58045377","root_ids":["1726"],"roots":{"1726":"7fc8bc5e-fd69-479b-8320-210aae49c8ed"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
