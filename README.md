@@ -22,3 +22,8 @@ A list of all figures in PNG and HTML forms, with corresponding scripts and data
 Python scripts with all the functions we used to analyze and plot the data
 
 
+## Acknowledgments
+
+We would like to thank Gardner et al. for making their hard-earned data public so that we could explore and visualize it. We are also indebted to the bebi103 course staff for answering all our questions and giving us support throughout the term. Next, huge shoutout to Griffin Chure for this [awesome reproducible website template](https://github.com/gchure/reproducible_website) and the open source community in general for answering our code-related questions. Finally, we would like to thank Justin Bois for creating this fun, occasionally frustrating, but highly rewarding class.
+
+
