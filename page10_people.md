@@ -2,8 +2,8 @@
 layout: page
 title: People
 description: About the authors
-img: people.png 
-caption: "Looking directly at the eclipse."
+img: sleepingbeautycastle.png # Add image post (optional)
+caption: "Frank Armitage, Disney castle"
 permalink: people
 sidebar: true
 ---
