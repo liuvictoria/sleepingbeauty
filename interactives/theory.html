@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4564,7 +4564,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-  
+
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -14251,17 +14251,17 @@ a.anchor-link {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 },
                 "HTML-CSS": {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14272,8 +14272,8 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Gardner et al. assumed that the microtubule catatrophe times are gamma distributed. The gamma distribution models the time we have to wait for $\alpha$ arrivals of a Poisson process, where each subprocess occurs at the same rate $\beta$. As Justin says, "Chemical processes are often modeled as Poisson processes, and one can imagine that it may take several successive chemical processes to trigger a catastrophe event. If these processes all have similar rates, the time to catastrophe could be approximately Gamma distributed" (quoted from solutions). Interestingly, even though arrivals are often thought of as integer values, the gamma distribution is continuous and can take on any positive real number. As such, there may be something like $\alpha = 2.4$ arrivals, and the average catastrophe time would be $\frac{\alpha}{\beta}$. The gamma model is well defined, and models of it can be found on <a href="https://distribution-explorer.github.io/continuous/gamma.html">Justin's Distribution Explorer</a>.</p>
-<p>As an alternate model, we propose "that exactly two biochemical processes have to happen in succession to trigger catastrophe. That is, the first process happens, and only after the first process happens can the second one happen. We model each of the two process as a Poisson process. The rate of arrivals for the first one is $\beta_1$ and the rate of arrivals for the second one is $\beta_2$" (quoted from homework problem). In other words, the time to each arrival individually is exponentially distributed, and the sum of the two arrival times is the catastrophe time. We can explore how this idea visually by randomly generating points out of the joint exponential distribution and varying our $\beta_1$ and $\beta_2$ parameter values. We use the <a href="https://liuvictoria.github.io/sleepingbeauty/software/viz_explore_two_arrival_story.py">viz_explore_two_arrival_story.py</a> module to generate Figure 2a.</p>
+<p>Gardner et al. assumed that the microtubule catatrophe times are gamma distributed. The gamma distribution models the time we have to wait for $\alpha$ arrivals of a Poisson process, where each subprocess occurs at the same rate $\beta$. As Justin says, "chemical processes are often modeled as Poisson processes, and one can imagine that it may take several successive chemical processes to trigger a catastrophe event. If these processes all have similar rates, the time to catastrophe could be approximately Gamma distributed" (quoted from solutions). Interestingly, even though arrivals are often thought of as integer values, the gamma distribution is continuous and can take on any positive real number. As such, there may be something like $\alpha = 2.4$ arrivals, and the average catastrophe time would be $\frac{\alpha}{\beta}$. The gamma model is well defined, and models of it can be found on <a href="https://distribution-explorer.github.io/continuous/gamma.html">Justin's Distribution Explorer</a>.</p>
+<p>As an alternate model, we propose "that exactly two biochemical processes have to happen in succession to trigger catastrophe. That is, the first process happens, and only after the first process happens can the second one happen. We model each of the two process as a Poisson process. The rate of arrivals for the first one is $\beta_1$ and the rate of arrivals for the second one is $\beta_2$" (quoted from homework problem). In other words, the time to each individual arrival is exponentially distributed, and the sum of the two arrival times is the catastrophe time. We can explore how this idea visually by randomly generating points out of the joint exponential distribution and varying our $\beta_1$ and $\beta_2$ parameter values. We use the <a href="https://liuvictoria.github.io/sleepingbeauty/software/viz_explore_two_arrival_story.py">viz_explore_two_arrival_story.py</a> module to generate Figure 2a.</p>
 
 </div>
 </div>
@@ -14289,11 +14289,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We see that when $\beta_2$ is much larger than $\beta_1$, the catastrophe times are much shorter, since having a high rate of arrival for the second event makes the first event the 'limiting step' of the story, and catastrophe can happen very soon after the first event has arrived. On the other hand, when $\beta_2$ is much smaller than $\beta_1$, the catastrophe times are longer, reflecting the fact that the second event takes a while, and it can only happen after the first event has arrived. Of interest, especially in the smaller values of catastrophe times, the distributions all have inflection points. This is different from exponential distributions, which do not.</p>
-<p>Now, we can get more theoretical and actually calculate the catastrophe time distribution analytically. We will show that the PDF of the distribution matching this story is:</p>
+<h3 id="Deriving-the-PDF">Deriving the PDF<a class="anchor-link" href="#Deriving-the-PDF">&#182;</a></h3><p>Now, we can get more theoretical and actually calculate the catastrophe time distribution analytically. We will show that the PDF of the distribution matching this story is:</p>
 \begin{align}
 f(t;\beta_1, \beta_2) = \frac{\beta_1 \beta_2}{\beta_2 - \beta_1}\left(\mathrm{e}^{-\beta_1 t} - \mathrm{e}^{-\beta_2 t}\right)
 \end{align}<p>for $\beta_1 \ne \beta_2$.</p>
-<p>Since there are two events that need to happen, we can think of the total time $t$ until catastrophe as the sum of two times--the time to event $1$, plus the time to event $2$. Mathematically, we let $t_1 = \textrm{time to first event}$; $t_2 = \textrm{time to second event, after the first event has happened}$. Then, we say that $t = t_1 + t_2$. Since both the first arrival and the second arrival are individually Poisson distributed, the time between events must be exponentially distributed. As such, we model the probability density functions of $t_1$ and $t_2$ as follows: $f(t_1) = \beta_1 \mathrm{e}^{(-\beta_1 t_1)}$ and $f(t_2) = \beta_2 \mathrm{e}^{(-\beta_2 t_2)}$.</p>
+<p>Since there are two events that need to happen, we can think of the total time $t$ until catastrophe as the sum of two times––the time to event $1$, plus the time to event $2$. Mathematically, we let $t_1 = \textrm{time to first event}$; $t_2 = \textrm{time to second event, after the first event has happened}$. Then, we say that $t = t_1 + t_2$. Since both the first arrival and the second arrival are individually Poisson distributed, the time between events must be exponentially distributed. As such, we model the probability density functions of $t_1$ and $t_2$ as follows: $f(t_1) = \beta_1 \mathrm{e}^{(-\beta_1 t_1)}$ and $f(t_2) = \beta_2 \mathrm{e}^{(-\beta_2 t_2)}$.</p>
 <p>Now, we write the joint distribution of $t_1$ and $t_2$ by multiplying $f(t_1)$ and $f(t_2)$.</p>
 \begin{align}
 f(t_1,t_2) = f(t_1)f(t_2) = \beta_1 \beta_2 \mathrm{e}^{-\beta_1 t_1}\mathrm{e}^{-\beta_2 t_2}
@@ -14302,7 +14302,7 @@ f(t_1,t_2) = f(t_1)f(t_2) = \beta_1 \beta_2 \mathrm{e}^{-\beta_1 t_1}\mathrm{e}^
 f(t_1, t_2) \,\,\, \overrightarrow{change \ of \ var.} \,\,\, f(t_1, t) \,\,\, \overrightarrow{marginalization} \,\,\, f(t)
 \end{align}<p>So,
 \begin{align}
-\\ 
+\\
 f(t_1, t_2) = \beta_1 \, \beta_2 \, \mathrm{e}^{-\beta_1 t_1} \, \mathrm{e}^{-\beta_2 t_2}
 \end{align}</p>
 <p>The derivative of $t_2$ with respect to $t$ is $1$, so the Jacobian is just $1$.</p>
@@ -14320,15 +14320,15 @@ f(t) = \int_0^t d t_1 \, \beta_1 \, \beta_2 \, \mathrm{e}^{-\beta_1 t_1} \, \mat
 f(t) = \beta_1 \, \beta_2 \, \mathrm{e}^{-\beta_2 t} \, \int_0^t d t_1 \, \mathrm{e}^{t_1 (\beta_2 - \beta_1)} \\[1em]
 f(t) = \beta_1 \, \beta_2 \, \mathrm{e}^{-\beta_2 t} \left[\dfrac{1}{\beta_2 - \beta_1} \, \mathrm{e}^{t_1 (\beta_2 \beta_1 )}\right]_0^t \\[1em]
 f(t) = \dfrac {\beta_1 \, \beta_2}{\beta_2 - \beta_1} \mathrm{e}^{-\beta_2 t} \left(\mathrm{e}^{t (\beta_2 - \beta_1)} - 1\right) \\[1em]
-f(t) = \dfrac{\beta_1 \, \beta_2}{\beta_2 - \beta_1} \left( \mathrm{e}^{-\beta_1 t} - \mathrm{e}^{-\beta_2 t} \right) 
+f(t) = \dfrac{\beta_1 \, \beta_2}{\beta_2 - \beta_1} \left( \mathrm{e}^{-\beta_1 t} - \mathrm{e}^{-\beta_2 t} \right)
 \end{align}<p>and we have shown that the above quantity is the PDF of our story. With this, the CDF of the distribution is:</p>
 \begin{align}
-F(t; \beta_1, \beta_2) = 
+F(t; \beta_1, \beta_2) =
 \frac{\beta_1 \beta_2}{\beta_2-\beta_1}\left[
 \frac{1}{\beta_1}\left(1-\mathrm{e}^{- \beta_1 t}\right)- \frac{1}{\beta_2}\left(1-\mathrm{e}^{-\beta_2 t}\right)
 \right].
 \end{align}<p>We will be overlaying CDFs over the ECDFs in the next section, but it is good to keep this in our back pocket for now. Now, let's delve even further into this model and derive maximum likelihood estimates for our two parameters, $\beta_1$ and $\beta_2$, both analytically and numerically.</p>
-<p>Let's begin by finding the log likelihoood of our pdf. Let's first impose that $\beta_1 \le \beta_2$, which we can do without loss of generality. Now, we can reparametrize by setting $\Delta\beta = \beta_2 - \beta_1 \ge 0$. Let'w rewrite pdf as a joint likelihood function:</p>
+<h3 id="Deriving-the-MLE-Numerically">Deriving the MLE Numerically<a class="anchor-link" href="#Deriving-the-MLE-Numerically">&#182;</a></h3><p>Let's begin by finding the log likelihoood of our PDF. Let's first impose that $\beta_1 \le \beta_2$, which we can do without loss of generality. Now, we can reparametrize by setting $\Delta\beta = \beta_2 - \beta_1 \ge 0$. Let's rewrite PDF as a joint likelihood function:</p>
 \begin{align}
 L(\beta_1, \Delta\beta ; \mathbf{t}) = \prod_{i = 1} ^ {n} \frac{\beta_1 \cdot (\beta_1 + \Delta\beta)}{\Delta\beta}\left(\mathrm{e}^{-\beta_1 t} - \mathrm{e}^{-\beta_1 - \Delta\beta t}\right)
 \end{align}<p>We assume that $\Delta\beta$ is very small. Unfortunately, that means that the term $\left(\mathrm{e}^{-\beta_1 t} - \mathrm{e}^{-\beta_1 + \Delta\beta t}\right)$ will become very close to zero, and we would prefer not to multiply very small numbers in succession. Instead, we will factor out ${e}^{-\beta_1 t}$ to get:</p>
@@ -14394,7 +14394,7 @@ n \beta_1 + n \Delta\beta + n \beta_1 &amp;= \bar{t} n (\beta_1^2 + \beta_1 \Del
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We see the graph pass through $0$, which is good news. We can now find the roots, knowing that it is somewhere between $(0.003, 0.008)$. This is also done in <code>viz_explore_two_arrival_story.py</code>, and we get the brentq root to be $0.004538126244018046$. Incidentally, this value is extremely close to $\frac{2}{\bar{t}}$ ($0.004538122378750404$), which we previously saw is the maximum value for $\beta_1$. Since we may need to do this estimation multiple times in the future, we will simply approximate $beta_1$ as $\frac{2}{\bar{t}}$, and we approximate $\Delta\beta$ to be a very small (but not zero, since that will give us some issues with parameter estimates) number.</p>
 <p>After implementing all of this theory, we draw MLEs for $\beta$ and $\Delta \beta$ and get that $\beta_1$'s MLE is $0.0045381223 \ s^{-1}$, while $\Delta \beta$'s is $0.0000000062$. Interestingly, we get values of $\Delta\beta$ that are basically negligible, meaning that $\beta_1$ and $\beta_2$ are similar. In other words, the two arrivals are most likely to have similar rates, given our data. We can also find the MLE estimate for $\beta_2$, which we'll need for confidence interval plotting later, and we get that $\beta_2$'s MLE is $0.0045381285 \ s^{-1}$. As we mentioned earlier, $\beta_1$ and $\beta_2$ are very similar, and we can actually show this analytically as well, which we do now.</p>
-<p>Previously, we've already seen that when $\Delta \beta = 0$, we have that $\beta_1 = 2/\bar{t}$. To maximize the likelihood for $\Delta \beta$, we need to find the value of $\Delta\beta$ that results in $\partial \ell /\partial \Delta\beta = 0$. We assume that $\Delta\beta$ is small and then show that $\Delta\beta = 0$ indeed is the MLE satisfying $\partial \ell /\partial \Delta\beta = 0$. For small $\Delta \beta$, we Taylor-expand to get:</p>
+<h3 id="Deriving-the-MLE-Analytically">Deriving the MLE Analytically<a class="anchor-link" href="#Deriving-the-MLE-Analytically">&#182;</a></h3><p>Previously, we've already seen that when $\Delta \beta = 0$, we have that $\beta_1 = 2/\bar{t}$. To maximize the likelihood for $\Delta \beta$, we need to find the value of $\Delta\beta$ that results in $\partial \ell /\partial \Delta\beta = 0$. We assume that $\Delta\beta$ is small and then show that $\Delta\beta = 0$ indeed is the MLE satisfying $\partial \ell /\partial \Delta\beta = 0$. For small $\Delta \beta$, we Taylor-expand to get:</p>
 \begin{align}
 \frac{\mathrm{e}^{-\Delta\beta t_i}}{1 - \mathrm{e}^{-\Delta\beta t_i}} \approx \frac{1}{\Delta \beta t_i} - \frac{1}{2}.
 \end{align}<p>Inserting this expression into our expression for $\partial\ell/\partial \Delta\beta$ gives</p>
@@ -14404,7 +14404,7 @@ n \beta_1 + n \Delta\beta + n \beta_1 &amp;= \bar{t} n (\beta_1^2 + \beta_1 \Del
  &amp;= \frac{n}{\beta_1 + \Delta\beta} - \frac{n\bar{t}}{2}.
 \end{align}<p>When this expression equals zero, we have our MLE. Choosing $\Delta\beta = 0$, and therefore that $\beta_1 = 2/\bar{t}$, satisfies $\partial \ell/\partial\Delta\beta = 0$. Therefore, the MLE is $\beta_1 = 2/\bar{t}$ and $\Delta\beta = 0$, or equivalently, $\beta_1 = \beta_2 = 2/\bar{t}$. Essentially, our MLEs suggest that the two-story model collapses down to the gamma distribution with $\alpha = 2$ when the arrival rates are similar (note: this last section, from 'previously, we've seen...' was copied from the solutions and lightly modified).</p>
 <p>Now, we are done with the theory parts, and we're set to plot some confidence intervals/regions of our parameters for both our gamma distribution story and two-event story. The parameters for the gamma distribution are $\alpha$ and $\beta$, while the parameters for the two-event story are $\beta_1$ and $\Delta \beta$, or more preferably, $\beta_1$ and $\beta_2$. Here, we use the <a href="https://liuvictoria.github.io/sleepingbeauty/software/viz_parameter_estimates.py">viz_parameter_estimates.py</a> module to generate all the plots of Figure 3.</p>
-
+<h3 id="Plots">Plots<a class="anchor-link" href="#Plots">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14418,7 +14418,7 @@ n \beta_1 + n \Delta\beta + n \beta_1 &amp;= \bar{t} n (\beta_1^2 + \beta_1 \Del
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As an initial guess for the gamma distribution $\alpha$, we estimate that there will be around $2$ arrivals. We choose $2$ mostly because we will later be modeling based on a two biochemical process story. In addition, chemically, it might be difficult to require a large number of arrivals to occur before catastrophe, since each successive arrival would make the overall chance for getting catastrophe lower and lower; and, as we've seen in previous problems, catastrophe is not a <em>particularly</em> rare event. As seen in the confidence intervals, the gamma distribution suggests that there are around $2.4$ arrivals, with a $95$% confidence interval of $[1.98242, 2.91772]$. Chemically, it sounds something funky may be going on. Perhaps there are two different populations of the microtubules, and there might be some mixture modeling going on, thus giving us a non-integer $alpha$. Or, maybe dimerization may affect the number of average arrivals, if one arrival might affect multiple microtubules. There may be other better explanations as well. The $beta$ is $0.00546287$ and represents the arrival rate, which suggests that it takes approximately $183$ seconds for one arrival to come.While the confidence interval plots look nice, since we have two parameters, it would more informative to look at a corner plot, since that way we can tell how different values of $alpha$ and $beta$ vary with each other, and what values of $\alpha$ and $\beta$ pairs are within the $95$% confidence interval. We see this in Figure 3b.</p>
+<p>As an initial guess for the gamma distribution $\alpha$, we estimate that there will be around $2$ arrivals. We choose $2$ mostly because we will later be modeling based on a two biochemical process story. In addition, chemically, it might be difficult to require a large number of arrivals to occur before catastrophe, since each successive arrival would make the overall chance for getting catastrophe lower and lower; and, as we've seen in previous problems, catastrophe is not a <em>particularly</em> rare event. As seen in the confidence intervals, the gamma distribution suggests that there are around $2.4$ arrivals, with a $95$% confidence interval of $[1.98242, 2.91772]$. Chemically, it sounds something funky may be going on. Perhaps there are two different populations of the microtubules, and there might be some mixture modeling going on, thus giving us a non-integer $\alpha$. Or, maybe dimerization may affect the number of average arrivals, if one arrival might affect multiple microtubules. There may be other better explanations as well. The $\beta$ is $0.00546287$ and represents the arrival rate, which suggests that it takes approximately $183$ seconds for one arrival to come.While the confidence interval plots look nice, since we have two parameters, it would more informative to look at a corner plot, since that way we can tell how different values of $\alpha$ and $\beta$ vary with each other, and what values of $\alpha$ and $\beta$ pairs are within the $95$% confidence interval. We see this in Figure 3b.</p>
 
 </div>
 </div>
