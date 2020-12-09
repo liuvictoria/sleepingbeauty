@@ -1,0 +1,25 @@
+# ##############################################################################
+# ABOUT
+# ------------------------------------------------------------------------------
+# This data file contains all information that will be displayed on the home
+# page of your website. The fields `title` and `authors` are necessary. These
+# keys cannot be changed or they will not be displayed on the website. 
+#
+# The remainder of the fileds can be changed to fit your needs. The field name
+# (e.g. abstract, summary, etc) Will appear with as H2 headings on the website.
+# The content below will appear 
+
+title: >
+  Microtubule Catastrophe
+authors: >
+  Victoria Liu, Sara Adams, Ruby Cheetham, Makayla Betts
+Abstract: >
+  WE NEED AN ABSTRACT! blkdsjflksjflkdsjfklsjdflkjdslkfjdlskjfklsj testing the width   flksjalfksjdlkfjsdlkjflksjflkjslfkjlsjflkjsalkfjsalkfjaslkdf HIH IHIHIHIHIHIHIHIfjlskjflksdjfkjsdfkjdsklfjslajc;kjxz.lcmiuhiawumhsl
+
+
+  $$S = k_b\ln \Omega. \tag{1}$$
+
+Summary:  >
+  Will add summary later
+Acknowledgments: > 
+  Will add acknowledgements later

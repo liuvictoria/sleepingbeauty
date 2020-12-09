@@ -1,0 +1,56 @@
+- script:
+  name: tidy_data.py
+  desc: >
+    Tidies both csv files into pd df (refer to the `data` section)
+    
+- script:
+  name: ecdfs.py
+  desc: >
+    Two ecdf functions
+
+- script:
+  name: controls.py
+  desc: >
+   All non-plotting functions in determining whether unlabeled vs labled were comparable
+    
+- script:
+  name: parameter_estimates.py
+  desc: >
+    All non-plotting functions to maximize mle for alpha/ beta and beta_1/beta_2 for gamma and two-story distributions, respectively
+    
+- script:
+  name: viz_controls.py
+  desc: >
+    Unlabeled vs labeled visualization
+    
+- script:
+  name: viz_explore_two_arrival_story.py
+  desc: >
+    Get graphical intuition about two arrival story
+
+- script:
+  name: viz_parameter_estimates.py
+  desc: >
+    Visualize parameter estimates (conf ints and corner plot conf ints)
+    
+- script:
+  name: viz_explore_concentration_datset.py
+  desc: >
+    Exploratory; visualize all the different concentrations and  catastrophe time
+    
+- script:
+  name: viz_model_comparison.py
+  desc: >
+    Graphs (predictive ecdfs, qq plots) for gamma vs two-events
+    
+- script:
+  name: viz_concentration_effects.py
+  desc: >
+    Visualization of beta vs alpha changes when concentration changes
+    
+- script:
+  name: viz_dashboard.py
+  desc: >
+    Interactive dashboard with concentration, alpha, and beta selection for catastrophe times
+
+
